@@ -48,7 +48,7 @@
                             ["product" => [
                                 'name' => 'Suscripción',
                                 'description' => 'Trimestral',
-                                'type' => 'trimestral',
+                                'type' => 'quarterly',
                                 'amount' => 1999.99
                             ]]
                         )
@@ -69,7 +69,7 @@
                             ["product" => [
                                 'name' => 'Suscripción',
                                 'description' => 'Anual',
-                                'type' => 'anual',
+                                'type' => 'yearly',
                                 'amount' => 8999.99
                             ]]
                         )
