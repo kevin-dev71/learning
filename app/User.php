@@ -69,6 +69,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function pathAttachment(){
+        return "/images/users/" . $this->picture;
+    }
+
     public static function navigation(){
         return auth()->check() ? auth()->user()->role->name : 'guest';
     }

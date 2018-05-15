@@ -20,6 +20,13 @@ Route::get('/', 'HomeController@index')->name('home');
             Route::get('/{course}/inscribe' , 'CourseController@inscribe')
                 ->name('courses.inscribe');
             Route::post('/add_review' , 'CourseController@addReview')->name('courses.add_review');
+
+            Route::get('/create' , 'CourseController@create')->name('courses.create')
+                ->middleware([sprintf("role:%s" , \App\Role::TEACHER)]);
+            Route::post('/store' , 'CourseController@store')->name('courses.store')
+                ->middleware([sprintf("role:%s" , \App\Role::TEACHER)]);
+            Route::put('/{course}/update' , 'CourseController@update')->name('courses.update')
+                ->middleware([sprintf("role:%s" , \App\Role::TEACHER)]);
         });
 
         Route::get('/{course}' , 'CourseController@show')->name('courses.detail');
@@ -57,4 +64,20 @@ Route::get('/', 'HomeController@index')->name('home');
         if(File::exists($file)){
             return Intervention\Image\Facades\Image::make($file)->response();
         }
+    });
+
+// ============== RUTAS PROFILES STUDENT PROFESOR ADMIN ===================
+    Route::group(["prefix" => "profile", "middleware" => ["auth"]], function() {
+        Route::get('/', 'ProfileController@index')->name('profile.index');
+        Route::put('/', 'ProfileController@update')->name('profile.update');
+    });
+
+    Route::group(['prefix' => "solicitude"], function() {
+        Route::post('/teacher', 'SolicitudeController@teacher')->name('solicitude.teacher');
+    });
+
+    Route::group(['prefix' => "teacher", "middleware" => ["auth"]], function() {
+        Route::get('/courses', 'TeacherController@courses')->name('teacher.courses');
+        Route::get('/students', 'TeacherController@students')->name('teacher.students');
+        Route::post('/send_message_to_student', 'TeacherController@sendMessageToStudent')->name('teacher.send_message_to_student');
     });

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Course
@@ -39,6 +40,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Course extends Model
 {
+    use SoftDeletes;
+
     const PUBLISHED = 1;
     const PENDING = 2;
     const REJECTED = 3;
@@ -88,7 +91,10 @@ class Course extends Model
 
     public function relatedCourses(){
         return Course::with('reviews')->whereCategoryId($this->category->id)
-            ->where('id' , '!=' , $this->id)
+            ->where([
+                ['id' , '!=' , $this->id],
+                ['status' ,'=', Course::PUBLISHED]
+            ])
             ->latest()
             ->limit(6)
             ->get();

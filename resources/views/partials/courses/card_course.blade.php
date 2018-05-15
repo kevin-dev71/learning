@@ -12,7 +12,7 @@
         <hr />
         <div class="row justify-content-center">
             {{-- anadir parcial para mostrar el rating --}}
-            @include('partials.courses.rating')
+            @include('partials.courses.rating' , ['rating' => $course->rating])
         </div>
         <hr />
         <span class="badge badge-danger badge-cat">{{ $course->category->name }}</span>

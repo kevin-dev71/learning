@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $course_id
  * @property int $user_id
- * @property float $rating
+ * @property int $rating
  * @property string|null $comment
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
 
-    protected $fillable = ['course_id' , 'user_id' , 'comment'];
+    protected $fillable = ['course_id' , 'user_id' , 'rating' , 'comment'];
 
     public function course(){
         return $this->belongsTo(Course::class);
