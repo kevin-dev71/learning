@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name' , 'Laravel') }}</title>
+    <title>{{ config('app.name' , 'Learning Laravel 5.6') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -39,7 +39,7 @@
     </main>
 </div>
 
-
+@include('partials.footer')
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

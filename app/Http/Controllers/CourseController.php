@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Helpers\Helper;
+use App\Http\Requests\CourseRequest;
 use App\Review;
 use App\Mail\NewStudentInCourse;
 use Illuminate\Http\Request;
@@ -92,7 +94,8 @@ class CourseController extends Controller
         return view('courses.form', compact('course', 'btnText'));
     }
 
-    /*public function store (CourseRequest $course_request) {
+    public function store (CourseRequest $course_request) {
+        // Falta validaciones para q no se repita el nombre de la imagen
         $picture = Helper::uploadFile('picture', 'courses');
         $course_request->merge(['picture' => $picture]);
         $course_request->merge(['teacher_id' => auth()->user()->teacher->id]);
@@ -105,7 +108,7 @@ class CourseController extends Controller
         $course = Course::with(['requirements', 'goals'])->withCount(['requirements', 'goals'])
             ->whereSlug($slug)->first();
         $btnText = __("Actualizar curso");
-        return view('courses.form', compact('course', 'btnText'));
+        return view('courses.form', ['course' => $course , 'btnText' => $btnText]);
     }
 
     public function update (CourseRequest $course_request, Course $course) {
@@ -123,7 +126,7 @@ class CourseController extends Controller
             $course->delete();
             return back()->with('message', ['success', __("Curso eliminado correctamente")]);
         } catch (\Exception $exception) {
-            return back()->with('message', ['danger', __("Error eliminando el curso")]);
+            return back()->with('message', ['danger', __("Error eliminando el curso, no se pudo eliminar")]);
         }
-    }*/
+    }
 }
